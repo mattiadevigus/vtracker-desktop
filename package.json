@@ -1,0 +1,23 @@
+{
+  "name": "vtracker-desktop",
+  "version": "1.0.0",
+  "description": "Application that will load all times of driving simulator servers on Vtracker 3",
+  "main": "index.js",
+    "dev": "cd backend && electron .",
+  "scripts": {
+    "frontend": "cd frontend && npm start",
+    "dis": "cd backend && nodemon --exec electron .",
+    "dev": "concurrently \"npm run frontend\" \"npm run dis\"",
+    "dev-update": "del-cli --force backend/build && cd frontend && npm run build && xcopy build ..\\backend\\build /i /e && cd ../backend && electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattiadevigus/vtracker-desktop.git"
+  },
+  "author": "Mattia Devigus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattiadevigus/vtracker-desktop/issues"
+  },
+  "homepage": "https://github.com/mattiadevigus/vtracker-desktop#readme"
+}
