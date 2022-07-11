@@ -10,12 +10,11 @@ const HomePage = () => {
     useEffect(() => {
         Axios.get("/")
             .then(res => {
-                console.log(res);
                 setTimeout(() => {
                     res.data.authenticated ? navigate("/dashboard") : navigate("/login")
                 }, 2000);
             })
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <Box sx={{ display: "flex", flexDirection: "column", height: "100vh", alignItems: "center", justifyContent: "center" }}>

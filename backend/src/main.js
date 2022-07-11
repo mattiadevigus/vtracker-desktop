@@ -7,6 +7,8 @@ let mainWindow;
 
 createWindow = () => {
     mainWindow = new BrowserWindow({
+        width:1200,
+        height: 800,
         minWidth: 1000,
         minHeight: 500,
         autoHideMenuBar: true,
@@ -15,7 +17,7 @@ createWindow = () => {
         }
     });
 
-    mainWindow.loadURL(isDev ? "http://localhost:3000" : "http://localhost:9000");
+    mainWindow.loadURL("http://localhost:3000");
 
     mainWindow.on('closed', () => {
         mainWindow = null;
