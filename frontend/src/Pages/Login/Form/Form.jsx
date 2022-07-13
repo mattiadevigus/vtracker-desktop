@@ -1,18 +1,21 @@
 import { Container, Box, Grid, TextField, Button, Snackbar, Alert } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 
 const Form = () => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         email: "",
         password: ""
     });
 
     const [snackBar, setSnackBar] = useState({
-        severity: "success",
         show: false,
-        text: "Login successful"
-    })
+        severity: "",
+        text: ""
+    });
 
     const handleChange = (e) => {
         setFormData({ ...formData, hasChanged: true, [e.target.name]: e.target.value })
@@ -21,10 +24,17 @@ const Form = () => {
 
     const submit = (e) => {
         e.preventDefault();
-        Axios.post("/login", formData)
+        Axios.post("/login", formData, { withCredentials: true })
             .then(res => {
                 console.log(res);
-                if (res.data.authenticated === true) setSnackBar({ severity: "success", show: true, text: "Login successful" })
+                if (res.data.authenticated) {
+                    setSnackBar({ show: true, severity: "success", text: "Login successful" });
+                    setTimeout(() => {
+                        navigate("/dashboard");
+                    }, 500);
+                } else {
+                    setSnackBar({ show: true, severity: "error", text: "Invalid Credentials" });
+                }
             })
     }
 
@@ -42,7 +52,7 @@ const Form = () => {
                     </Grid>
                     <Button type="submit" variant="contained" sx={{ marginTop: "2rem" }}>Login</Button>
                     <Snackbar open={snackBar.show} autoHideDuration={6000}>
-                        <Alert severity="success" sx={{ width: '100%' }}>
+                        <Alert severity={snackBar.severity} sx={{ width: '100%' }}>
                             {snackBar.text}
                         </Alert>
                     </Snackbar>

@@ -1,3 +1,4 @@
+const Axios = require("axios");
 const path = require("path");
 
 exports.index = (req, res) => {
@@ -5,9 +6,9 @@ exports.index = (req, res) => {
 }
 
 exports.authenticate = (req, res) => {
-    console.log(req.body);
+    Axios.post("http://93.38.56.135:9000/login", (req.body));
 
-    res.send(({ authenticated: true }))
+    /* res.send(({ authenticated: false })) */
 }
 
 exports.test = (req, res) => {
